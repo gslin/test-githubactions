@@ -3,7 +3,10 @@ const express = require('express');
 const app = express();
 const port = 3001;
 
+// Serve static files:
 app.use(express.static('public'));
+
+// Use ejs:
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
