@@ -1,5 +1,7 @@
 const express = require('express');
 
+const api = require('./src/api');
+
 const app = express();
 const port = 3001;
 
@@ -13,6 +15,8 @@ app.set('views', 'src/views');
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.use('/api', api);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
