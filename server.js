@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const app = require('./src/app');
 
 const port = 3001;
