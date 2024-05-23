@@ -1,9 +1,8 @@
 const express = require('express');
 
-const api = require('./src/api');
+const api = require('./api');
 
 const app = express();
-const port = 3001;
 
 // Serve static files:
 app.use(express.static('public'));
@@ -18,6 +17,4 @@ app.get('/', (req, res) => {
 
 app.use('/api', api);
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+module.exports = app;
