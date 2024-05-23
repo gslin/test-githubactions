@@ -1,0 +1,9 @@
+name: Default
+run-name: ${{ github.actor }} is testing out GitHub Actions
+on: [push]
+jobs:
+  default:
+    runs-on: node:20
+    steps:
+      - run: npm install --no-audit
+      - run: npm test
