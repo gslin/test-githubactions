@@ -17,3 +17,4 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
+      - run: mkdir -p ~/.ssh; echo -n "{{ secret.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
