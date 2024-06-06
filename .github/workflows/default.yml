@@ -26,4 +26,4 @@ jobs:
           rsync -Favz -e "ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222" --delete-after ./ service-test@colo-contabo-1.gslin.com:test-githubactions/
       - name: Restart services (WIP)
         run: |
-          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 "ls -al"
+          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com "ls -al"
