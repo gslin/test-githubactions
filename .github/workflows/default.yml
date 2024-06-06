@@ -20,6 +20,7 @@ jobs:
       - name: Setup SSH private key
         env:
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
         run: |
-          mkdir -p ~/.ssh; echo "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519; chmod 600 ~/.ssh/id_ed25519
+          mkdir -p ~/.ssh; echo "$DEPLOY_SSH_PRIVATE_KEY_BASE64" | base64 -d > ~/.ssh/id_ed25519; chmod 600 ~/.ssh/id_ed25519
       - run: ssh -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com "ls -al"
