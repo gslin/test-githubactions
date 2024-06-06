@@ -19,7 +19,7 @@ jobs:
       - run: npm test
       - name: Setup SSH private key
         env:
-          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
         run: |
-          mkdir -p ~/.ssh; echo -n "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa
+          mkdir -p ~/.ssh; echo -n "$DEPLOY_SSH_PRIVATE_KEY_BASE64" | base64 -d > ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa
       - run: ssh -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com "ls -al"
