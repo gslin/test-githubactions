@@ -17,5 +17,5 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
-      - run: mkdir -p ~/.ssh; echo -n "{{ secret.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa
+      - run: mkdir -p ~/.ssh; echo -n "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa
       - run: ssh -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com "ls -al"
