@@ -24,3 +24,4 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
+      - run: pipx install git+https://github.com/aws/aws-cli.git@v2.6.12
