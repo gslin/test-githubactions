@@ -10,10 +10,6 @@ jobs:
         with:
           cache: 'npm'
           node-version: '20.x'
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: pwsh
-        run: echo "dir=$(npm config get cache)" >> ${env:GITHUB_OUTPUT}
       - run: npm ci
       - run: npm run lint
       - run: npm test
