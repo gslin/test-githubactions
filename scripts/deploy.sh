@@ -12,4 +12,11 @@ export PATH="${HOME}/.fnm:${PATH}"
 # Install node 20 if not installed, also set to default.
 fnm default 20 || ( fnm install 20; fnm default 20 )
 
-cd ~/test-githubactions; npx pm2 restart ecosystem.config.js
+# Change to project directory.
+cd ~/test-githubactions
+
+# Setup systemd.
+npx pm2 startup systemd -u service-test --hp ~
+
+# Restart service.
+npx pm2 restart ecosystem.config.js
