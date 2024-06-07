@@ -25,5 +25,6 @@ jobs:
         run: |
           rsync -Favz -e "ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222" --delete-after ./ service-test@colo-contabo-1.gslin.com:test-githubactions/
       - name: Restart services
+        # Use workaround to load fnm.
         run: |
-          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com 'eval "$(${HOME}/.fnm/fnm env --use-on-cd)" && export PATH="${HOME}/.fnm:${PATH}"; cd test-githubactions; npx pm2 ecosystem.config.js restart'
+          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com 'eval "$(${HOME}/.fnm/fnm env --use-on-cd)" && export PATH="${HOME}/.fnm:${PATH}"; cd test-githubactions; npx pm2 restart ecosystem.config.js'
