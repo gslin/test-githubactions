@@ -18,7 +18,7 @@ jobs:
       - run: npm test
       - name: Setup SSH config
         run: |
-          mkdir -p ~/.ssh; echo -e 'Host colo-contabo-1.gslin.com\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n' > ~/.ssh/config
+          mkdir -p ~/.ssh; echo -e 'Host colo-contabo-1.gslin.com\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-test\n' > ~/.ssh/config
       - name: Setup SSH private key
         env:
           DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
@@ -26,11 +26,11 @@ jobs:
           mkdir -p ~/.ssh; echo -n "$DEPLOY_SSH_PRIVATE_KEY_BASE64" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
       - name: Deploy to server
         run: |
-          rsync -Favz --delete-after ./ service-test@colo-contabo-1.gslin.com:test-githubactions/
+          rsync -Favz --delete-after ./ colo-contabo-1.gslin.com:test-githubactions/
       - name: Install fnm
         run: |
-          ssh service-test@colo-contabo-1.gslin.com 'test -x ~/.fnm/fnm || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/v1.37.0/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )'
+          ssh colo-contabo-1.gslin.com 'test -x ~/.fnm/fnm || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/v1.37.0/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )'
       - name: Restart services
         # Use workaround to load fnm.
         run: |
-          ssh service-test@colo-contabo-1.gslin.com 'eval "$(${HOME}/.fnm/fnm env --use-on-cd)" && export PATH="${HOME}/.fnm:${PATH}"; cd test-githubactions; npx pm2 restart ecosystem.config.js'
+          ssh colo-contabo-1.gslin.com 'eval "$(~/.fnm/fnm env --use-on-cd)" && export PATH="${HOME}/.fnm:${PATH}"; cd test-githubactions; npx pm2 restart ecosystem.config.js'
