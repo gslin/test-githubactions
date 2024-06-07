@@ -24,6 +24,7 @@ jobs:
       - name: Deploy to server
         run: |
           rsync -Favz -e "ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222" --delete-after ./ service-test@colo-contabo-1.gslin.com:test-githubactions/
-      - name: Restart services (WIP)
+      - name: Restart services
+        # Use bash -cl to include fnm.
         run: |
-          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com "cd test-githubactions; npx pm2 restart ecosystem.config.js"
+          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com /bin/bash -cl "cd test-githubactions; npx pm2 ecosystem.config.js restart"
