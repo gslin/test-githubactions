@@ -24,6 +24,9 @@ jobs:
       - name: Deploy to server
         run: |
           rsync -Favz -e "ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222" --delete-after ./ service-test@colo-contabo-1.gslin.com:test-githubactions/
+      - name: Install fnm
+        run: |
+          ssh -i ~/.ssh/deploy.pem -o StrictHostKeyChecking=accept-new -p 222 service-test@colo-contabo-1.gslin.com 'command -v fnm || ( cd /tmp; wget https://github.com/Schniz/fnm/releases/download/v1.37.0/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )'
       - name: Restart services
         # Use workaround to load fnm.
         run: |
