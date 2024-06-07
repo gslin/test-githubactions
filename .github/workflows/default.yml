@@ -30,6 +30,9 @@ jobs:
       - name: Install fnm
         run: |
           ssh colo-contabo-1.gslin.com 'test -x ~/.fnm/fnm || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/v1.37.0/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )'
+      - name: Install node 20
+        run: |
+          ssh colo-contabo-1.gslin.com 'eval "$(~/.fnm/fnm env --use-on-cd)" && export PATH="${HOME}/.fnm:${PATH}"; fnm default 20 || ( fnm install 20; fnm default 20 )'
       - name: Restart services
         # Use workaround to load fnm.
         run: |
