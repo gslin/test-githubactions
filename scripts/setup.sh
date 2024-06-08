@@ -16,6 +16,7 @@ fnm default 20 || ( fnm install 20; fnm default 20 )
 cd ~/test-githubactions
 
 # Setup systemd.
+mkdir -p ~/.config/systemd/user
 cp scripts/test-githubactions.service ~/.config/systemd/user
 systemctl --user daemon-reload
 systemctl --user enable --now test-githubactions.service
