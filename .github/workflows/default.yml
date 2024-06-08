@@ -31,6 +31,6 @@ jobs:
         run: |
           rsync -Favz --delete-after ./ colo-contabo-1.gslin.com:test-githubactions/
 
-      - name: Run deploy.sh remotely
+      - name: Run setup.sh remotely
         run: |
-          ssh colo-contabo-1.gslin.com 'cd ~/test-githubactions; scripts/deploy.sh'
+          ssh colo-contabo-1.gslin.com 'cd ~/test-githubactions; scripts/setup.sh'
