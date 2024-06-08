@@ -16,7 +16,9 @@ fnm default 20 || ( fnm install 20; fnm default 20 )
 cd ~/test-githubactions
 
 # Setup systemd.
-npx pm2 startup systemd -u service-test --hp ~
+cp scripts/test-githubactions.service ~/.config/systemd/user
+systemctl --user daemon-reload
+systemctl --user enable --now test-githubactions.service
 
 # Restart service.
-npx pm2 restart ecosystem.config.js
+systemctl --user restart test-githubactions.service
