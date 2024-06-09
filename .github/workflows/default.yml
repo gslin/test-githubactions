@@ -15,7 +15,7 @@ jobs:
           cache: 'pip'
           python-version: '3.11'
 
-      - run: npm ci --no-audit
+      - run: npm install --no-audit
       - run: npm run lint
       - run: npm test
 
