@@ -28,8 +28,7 @@ jobs:
 
       - name: Setup SSH config
         run: |
-          mkdir -p ~/.ssh; echo -e "Host ${DEPLOY_HOSTNAME}\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-${PROJECT_NAME}\n" > ~/.ssh/config
-          cat ~/.ssh/config
+          mkdir -p ~/.ssh; echo -e "Host ${DEPLOY_HOSTNAME}\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-${PROJECT_NAME}" > ~/.ssh/config
       - name: Setup SSH private key
         env:
           DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
