@@ -13,7 +13,10 @@ export PATH="${HOME}/.fnm:${PATH}"
 fnm default 20 || ( fnm install 20; fnm default 20 )
 
 # Change to project directory.
-cd "~/${PROJECT_NAME}"
+cd "$(dirname $0)/.."
+
+# Get project name via directory's name.
+PROJECT_NAME="$(realpath $0)"
 
 # Setup systemd.
 mkdir -p ~/.config/systemd/user
