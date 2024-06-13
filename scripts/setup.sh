@@ -16,7 +16,7 @@ fnm default 20 || ( fnm install 20; fnm default 20 )
 cd "$(dirname $0)/.."
 
 # Get project name via directory's name.
-PROJECT_NAME="$(realpath .)"
+PROJECT_NAME="$(basename $(realpath .))"
 
 # Setup systemd.
 mkdir -p ~/.config/systemd/user
