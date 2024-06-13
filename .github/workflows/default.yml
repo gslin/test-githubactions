@@ -40,4 +40,4 @@ jobs:
 
       - name: Run setup.sh remotely
         run: |
-          ssh "${DEPLOY_HOSTNAME}" "cd ~/${PROJECT_NAME}; scripts/setup.sh"
+          ssh "${DEPLOY_HOSTNAME}" "cd ~/${PROJECT_NAME}; DEPLOY_HOSTNAME=${DEPLOY_HOSTNAME} PROJECT_NAME=${PROJECT_NAME} scripts/setup.sh"
