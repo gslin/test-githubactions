@@ -13,13 +13,13 @@ export PATH="${HOME}/.fnm:${PATH}"
 fnm default 20 || ( fnm install 20; fnm default 20 )
 
 # Change to project directory.
-cd ~/test-githubactions
+cd "~/${PROJECT_NAME}"
 
 # Setup systemd.
 mkdir -p ~/.config/systemd/user
-cp scripts/test-githubactions.service ~/.config/systemd/user
+cp "scripts/${PROJECT_NAME}.service" ~/.config/systemd/user
 systemctl --user daemon-reload
-systemctl --user enable --now test-githubactions.service
+systemctl --user enable --now "${PROJECT_NAME}.service"
 
 # Restart service.
-systemctl --user restart test-githubactions.service
+systemctl --user restart "${PROJECT_NAME}.service"
