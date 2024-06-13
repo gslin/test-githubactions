@@ -24,8 +24,11 @@ jobs:
       - run: npm test
 
       - name: Setup SSH config
+        env:
+          DEPLOY_HOSTNAME: ${{ env.DEPLOY_HOSTNAME }}
+          PROJECT_NAME: ${{ env.PROJECT_NAME }}
         run: |
-          mkdir -p ~/.ssh; echo -e 'Host colo-contabo-1.gslin.com\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-test\n' > ~/.ssh/config
+          mkdir -p ~/.ssh; echo -e 'Host ${DEPLOY_HOSTNAME}\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-${PROJECT_NAME}\n' > ~/.ssh/config
       - name: Setup SSH private key
         env:
           DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
@@ -36,5 +39,8 @@ jobs:
           rsync -Favz --delete-after ./ colo-contabo-1.gslin.com:test-githubactions/
 
       - name: Run setup.sh remotely
+        env:
+          DEPLOY_HOSTNAME: ${{ env.DEPLOY_HOSTNAME }}
+          PROJECT_NAME: ${{ env.PROJECT_NAME }}
         run: |
           ssh colo-contabo-1.gslin.com 'cd ~/test-githubactions; scripts/setup.sh'
