@@ -4,6 +4,9 @@ on:
     branches:
       - develop
       - main
+env:
+  DEPLOY_HOSTNAME: ${{ vars.DEPLOY_HOSTNAME }}
+  PROJECT_NAME: ${{ vars.PROJECT_NAME }}
 jobs:
   default:
     runs-on: ubuntu-latest
@@ -24,9 +27,6 @@ jobs:
       - run: npm test
 
       - name: Setup SSH config
-        env:
-          DEPLOY_HOSTNAME: ${{ env.DEPLOY_HOSTNAME }}
-          PROJECT_NAME: ${{ env.PROJECT_NAME }}
         run: |
           mkdir -p ~/.ssh; echo -e 'Host ${DEPLOY_HOSTNAME}\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User service-${PROJECT_NAME}\n' > ~/.ssh/config
       - name: Setup SSH private key
@@ -36,11 +36,8 @@ jobs:
           mkdir -p ~/.ssh; echo -n "${DEPLOY_SSH_PRIVATE_KEY_BASE64}" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
       - name: Deploy to server
         run: |
-          rsync -Favz --delete-after ./ colo-contabo-1.gslin.com:test-githubactions/
+          rsync -Favz --delete-after ./ "${DEPLOY_HOSTNAME}":test-githubactions/
 
       - name: Run setup.sh remotely
-        env:
-          DEPLOY_HOSTNAME: ${{ env.DEPLOY_HOSTNAME }}
-          PROJECT_NAME: ${{ env.PROJECT_NAME }}
         run: |
           ssh colo-contabo-1.gslin.com 'cd ~/test-githubactions; scripts/setup.sh'
