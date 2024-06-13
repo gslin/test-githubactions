@@ -36,7 +36,7 @@ jobs:
           mkdir -p ~/.ssh; echo -n "${DEPLOY_SSH_PRIVATE_KEY_BASE64}" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
       - name: Deploy to server
         run: |
-          rsync -Favz --delete-after ./ "${DEPLOY_HOSTNAME}":test-githubactions/
+          rsync -Favz --delete-after ./ "${DEPLOY_HOSTNAME}:${PROJECT_NAME}/"
 
       - name: Run setup.sh remotely
         run: |
