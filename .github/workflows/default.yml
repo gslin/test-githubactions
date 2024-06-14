@@ -6,7 +6,7 @@ on:
       - main
 env:
   DEPLOY_HOSTNAME: ${{ vars.DEPLOY_HOSTNAME }}
-  PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+  PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
   default:
     runs-on: ubuntu-latest
