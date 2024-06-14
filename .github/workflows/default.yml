@@ -2,10 +2,9 @@ name: Default
 on:
   push:
     branches:
-      - develop
       - main
 env:
-  DEPLOY_HOSTNAME: ${{ vars.DEPLOY_HOSTNAME }}
+  DEPLOY_HOSTNAME_MAIN: colo-contabo-1.gslin.com
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
   default:
@@ -21,6 +20,10 @@ jobs:
         with:
           cache: 'pip'
           python-version: '3.11'
+
+      - name: Setup environment variables based on branches
+        run: |
+          echo "DEPLOY_HOSTNAME=${DEPLOY_HOSTNAME_$(echo ${GITHUB_REF_NAME} | tr a-z A-Z)}" >> "${GITHUB_ENV}"
 
       - run: npm install --no-audit
       - run: npm run lint
