@@ -32,7 +32,7 @@ jobs:
             echo "DEPLOY_SSH_USERNAME=${BRANCH_MAIN_DEPLOY_SSH_USERNAME" >> "${GITHUB_ENV}"
           else
             exit 1
-          endif
+          fi
 
       - run: npm install --no-audit
       - run: npm run lint
