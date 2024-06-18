@@ -49,8 +49,6 @@ jobs:
         run: |
           mkdir -p ~/.ssh; echo -e "Host ${DEPLOY_SSH_HOSTNAME}\n    IdentityFile ~/.ssh/deploy.pem\n    Port 222\n    StrictHostKeyChecking accept-new\n    User ${DEPLOY_SSH_USERNAME}" > ~/.ssh/config
       - name: Setup SSH private key
-        env:
-          DEPLOY_SSH_PRIVATE_KEY_BASE64: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY_BASE64 }}
         run: |
           mkdir -p ~/.ssh; echo -n "${DEPLOY_SSH_PRIVATE_KEY_BASE64}" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
       - name: Deploy to server
