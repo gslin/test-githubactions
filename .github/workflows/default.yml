@@ -4,6 +4,7 @@ on:
     branches:
       - main
 env:
+  GITHUB_BASE_REF: ${{ github.GITHUB_BASE_REF }}
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
   default:
