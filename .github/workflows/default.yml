@@ -23,7 +23,7 @@ jobs:
       - name: Setup environment variables based on branches
         shell: bash
         run: |
-          _BRANCH_NAME=$(echo "${{ github.base_ref}}" | tr a-z A-Z)
+          echo "_BRANCH_NAME=$(echo ${{ github.base_ref }} | tr a-z A-Z)" >> "${GITHUB_ENV}"
           echo "DEPLOY_SSH_HOSTNAME=${BRANCH_${_BRANCH_NAME}}_DEPLOY_HOSTNAME" >> "${GITHUB_ENV}"
           echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_${_BRANCH_NAME}}_SSH_DEPLOY_SSH_PRIVATE_KEY_BASE64" >> "${GITHUB_ENV}"
           echo "DEPLOY_SSH_USERNAME=${BRANCH_${_BRANCH_NAME}}_DEPLOY_SSH_USERNAME" >> "${GITHUB_ENV}"
