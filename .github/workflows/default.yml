@@ -21,6 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Setup environment variables based on branches
+        shell: bash
         run: |
           _BRANCH_NAME=$(echo "${{ github.base_ref}}" | tr a-z A-Z)
           echo "DEPLOY_SSH_HOSTNAME=${BRANCH_${_BRANCH_NAME}}_DEPLOY_HOSTNAME" >> "${GITHUB_ENV}"
