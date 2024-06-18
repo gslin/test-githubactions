@@ -30,11 +30,11 @@ jobs:
       - name: Setup environment variables based on branches
         run: |
           if [[ "${GITHUB_REF_NAME}" = "develop" ]]; then
-            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_DEVELOP_DEPLOY_HOSTNAME}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
             echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_DEVELOP_SSH_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
             echo "DEPLOY_SSH_USERNAME=${BRANCH_DEVELOP_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
           elif [[ "${GITHUB_REF_NAME}" = "main" ]]; then
-            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_MAIN_DEPLOY_HOSTNAME}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_MAIN_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
             echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_MAIN_SSH_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
             echo "DEPLOY_SSH_USERNAME=${BRANCH_MAIN_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
           else
