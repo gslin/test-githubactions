@@ -23,6 +23,10 @@ fnm default 20 || ( fnm install 20; fnm default 20 )
 # Change to project directory.
 cd "$(dirname $0)/.."
 
+# Get git branch name and setup .env
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+cp ".env.${BRANCH_NAME}" .env
+
 # Get project name via directory's name.
 PROJECT_NAME="$(basename $(realpath .))"
 
