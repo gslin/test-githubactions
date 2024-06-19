@@ -3,10 +3,11 @@
 # This script is run on the actual server (e.g. production one).
 
 # Install fnm if not installed.
+FNM_VERSION=v1.37.1
 if [[ "$(uname -m)" = "x86_64" ]]; then
-    test -x ~/.fnm/fnm || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/v1.37.1/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
+    ( file ~/.fnm/fnm | grep x86-64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-linux.zip; mkdir ~/.fnm; unzip fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
 elif [[ "$(uname -m)" = "aarch64" ]]; then
-    test -x ~/.fnm/fnm || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/v1.37.1/fnm-arm64.zip; mkdir ~/.fnm; unzip fnm-arm64.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
+    ( file ~/.fnm/fnm | grep aarch64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-arm64.zip; mkdir ~/.fnm; unzip fnm-arm64.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
 else
     echo "Unknown machine type, uname -m: $(uname -m)" >&2
     exit 1
