@@ -13,10 +13,10 @@ It should be quite simple and easy to understand, but it's not well-documented, 
 * Enable user's systemd.
 * Install SSH public key.
 
-## Components
+## Installation (repository)
 
-* `.github/workflows/default.yml`
-* `scripts/setup.sh`
+* Copy `.github/workflows/default.yml` to your repository.
+* Copy `scripts/setup.sh` to your repository.
 
 ## CD (GitHub Actions)
 
