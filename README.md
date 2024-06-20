@@ -7,6 +7,12 @@ This repository is trying to build a complete pipeline for:
 
 It should be quite simple and easy to understand, but it's not well-documented, so please read the code carefully.
 
+## Installation (target server)
+
+* Enable SSH port.
+* Enable user's systemd.
+* Install SSH public key.
+
 ## Components
 
 * `.github/workflows/default.yml`
