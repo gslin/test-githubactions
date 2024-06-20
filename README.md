@@ -18,7 +18,9 @@ It should be quite simple and easy to understand, but it's not well-documented, 
 * `.github/workflows/default.yml`
 * `scripts/setup.sh`
 
-## Variable(s)
+## CD (GitHub Actions)
+
+### Variable(s)
 
 * `BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME`
 * `BRANCH_DEVELOP_DEPLOY_SSH_PORT`
@@ -31,7 +33,7 @@ For example:
 
     gh variable set BRANCH_DEVELOP_DEPLOY_HOSTNAME -b 'host.example.com'
 
-## Secret(s)
+### Secret(s)
 
 * `BRANCH_DEVELOP_DEPLOY_SSH_PRIVATE_KEY_BASE64`
 * `BRANCH_MAIN_DEPLOY_SSH_KEY_PRIVATE_BASE64`
