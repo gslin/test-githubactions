@@ -2,7 +2,7 @@
 
 This repository is trying to build a complete pipeline for:
 
-* fnm + Node.js 20
+* fnm + Node.js 20 + pm2 + systemd --user
 * Deploy your code with GitHub Actions by SSHing to your server.
 
 It should be quite simple and easy to understand, but it's not well-documented, so please read the code carefully.
