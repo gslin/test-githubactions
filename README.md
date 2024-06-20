@@ -9,6 +9,7 @@ It should be quite simple and easy to understand, but it's not well-documented, 
 
 ## Components
 
+* `.github/workflows/default.yml`
 * `scripts/setup.sh`
 
 ## Variable(s)
