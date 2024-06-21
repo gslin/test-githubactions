@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  content: write
+
 env:
   BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME: ${{ vars.BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME }}
   BRANCH_DEVELOP_DEPLOY_SSH_PORT: ${{ vars.BRANCH_DEVELOP_DEPLOY_SSH_PORT }}
