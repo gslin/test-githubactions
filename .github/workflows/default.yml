@@ -72,7 +72,7 @@ jobs:
           ls -al ~/.ssh
 
       - uses: github/lock@v2.2.0
-        id: "${PROJECT_NAME}-deploylock"
+        id: ${{ github.event.repository.name }}-${{ github.ref_name }}-deploylock
 
       - name: Deploy to server
         run: |
