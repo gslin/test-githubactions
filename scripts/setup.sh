@@ -2,6 +2,9 @@
 
 # This script is run on the actual server (e.g. production one).
 
+# Change to project directory.
+cd "$(dirname $0)/.."
+
 # Install fnm if not installed.
 FNM_VERSION=v1.37.1
 if [[ "$(uname -m)" = "x86_64" ]]; then
@@ -19,9 +22,6 @@ export PATH="${HOME}/.fnm:${PATH}"
 
 # Install node 20 if not installed, also set to default.
 fnm default 20 || ( fnm install 20; fnm default 20 )
-
-# Change to project directory.
-cd "$(dirname $0)/.."
 
 # Get git branch name and setup .env
 BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
