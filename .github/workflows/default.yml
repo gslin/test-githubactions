@@ -36,6 +36,8 @@ jobs:
     needs: ci
     runs-on: ubuntu-latest
     steps:
+      - uses: github/branch-deploy@v9
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -73,11 +75,6 @@ jobs:
         run: |
           mkdir -p ~/.ssh; echo -n "${DEPLOY_SSH_PRIVATE_KEY_BASE64}" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
           ls -al ~/.ssh
-
-      - uses: github/lock@v2.2.0
-        id: deploylock
-        with:
-          mode: lock
 
       - name: Deploy to server
         run: |
