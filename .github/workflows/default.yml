@@ -70,6 +70,10 @@ jobs:
         run: |
           mkdir -p ~/.ssh; echo -n "${DEPLOY_SSH_PRIVATE_KEY_BASE64}" | base64 -d > ~/.ssh/deploy.pem; chmod 600 ~/.ssh/deploy.pem
           ls -al ~/.ssh
+
+      - uses: github/lock@v2.2.0
+        id: "${{ github.event.repository.name }}-deploylock"
+
       - name: Deploy to server
         run: |
           rsync -Favz --delete-after ./ "${DEPLOY_SSH_HOSTNAME}:${PROJECT_NAME}/"
