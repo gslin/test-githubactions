@@ -75,7 +75,7 @@ jobs:
           ls -al ~/.ssh
 
       - uses: github/lock@v2.2.0
-        id: lock
+        id: deploylock
         with:
           mode: lock
 
