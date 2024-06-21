@@ -79,6 +79,9 @@ jobs:
 
       - uses: github/lock@v2.2.0
         id: lock
+        with:
+          mode: lock
+          reason: Deployment on ${GITHUB_REF_NAME}
 
       - name: Deploy to server
         run: |
