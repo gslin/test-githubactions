@@ -8,6 +8,9 @@ FNM_VERSION=v1.37.1
 # Change to project directory.
 cd "$(dirname $0)/.."
 
+# Get project name via directory's name.
+PROJECT_NAME="$(basename $(realpath .))"
+
 # Node.js project
 if [[ -f .nvmrc ]]; then
     # Install fnm if not installed.
@@ -32,9 +35,6 @@ fi
 # Get git branch name and setup .env
 BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
 cp ".env.${BRANCH_NAME}" .env
-
-# Get project name via directory's name.
-PROJECT_NAME="$(basename $(realpath .))"
 
 # Setup systemd-related things.
 mkdir -p ~/.config/systemd/user
