@@ -11,6 +11,10 @@ cd "$(dirname $0)/.."
 # Get project name via directory's name.
 PROJECT_NAME="$(basename $(realpath .))"
 
+# Get git branch name and setup .env
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+cp ".env.${BRANCH_NAME}" .env
+
 # Node.js project
 if [[ -f .nvmrc ]]; then
     # Install fnm if not installed.
@@ -31,10 +35,6 @@ if [[ -f .nvmrc ]]; then
     _NODE_VERSION=$(cat .nvmrc)
     fnm default "${_NODE_VERSION}" || ( fnm install "${_NODE_VERSION}"; fnm default "${_NODE_VERSION}" )
 fi
-
-# Get git branch name and setup .env
-BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
-cp ".env.${BRANCH_NAME}" .env
 
 # Setup systemd-related things.
 mkdir -p ~/.config/systemd/user
