@@ -25,22 +25,6 @@ jobs:
           cache: 'npm'
           node-version: '20.x'
 
-      - name: Setup environment variables based on branches
-        run: |
-          if [[ "${GITHUB_REF_NAME}" = "develop" ]]; then
-            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_PORT=${BRANCH_DEVELOP_DEPLOY_SSH_PORT}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_DEVELOP_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_USERNAME=${BRANCH_DEVELOP_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
-          elif [[ "${GITHUB_REF_NAME}" = "main" ]]; then
-            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_MAIN_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_PORT=${BRANCH_MAIN_DEPLOY_SSH_PORT}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_MAIN_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
-            echo "DEPLOY_SSH_USERNAME=${BRANCH_MAIN_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
-          else
-            exit 1
-          fi
-
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
@@ -58,6 +42,22 @@ jobs:
         with:
           cache: 'pip'
           python-version: '3.11'
+
+      - name: Setup environment variables based on branches
+        run: |
+          if [[ "${GITHUB_REF_NAME}" = "develop" ]]; then
+            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_DEVELOP_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_PORT=${BRANCH_DEVELOP_DEPLOY_SSH_PORT}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_DEVELOP_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_USERNAME=${BRANCH_DEVELOP_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
+          elif [[ "${GITHUB_REF_NAME}" = "main" ]]; then
+            echo "DEPLOY_SSH_HOSTNAME=${BRANCH_MAIN_DEPLOY_SSH_HOSTNAME}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_PORT=${BRANCH_MAIN_DEPLOY_SSH_PORT}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_PRIVATE_KEY_BASE64=${BRANCH_MAIN_DEPLOY_SSH_PRIVATE_KEY_BASE64}" >> "${GITHUB_ENV}"
+            echo "DEPLOY_SSH_USERNAME=${BRANCH_MAIN_DEPLOY_SSH_USERNAME}" >> "${GITHUB_ENV}"
+          else
+            exit 1
+          fi
 
       - run: npm install --no-audit
 
