@@ -2,26 +2,32 @@
 
 # This script is run on the actual server (e.g. production one).
 
+# Constants
+FNM_VERSION=v1.37.1
+
 # Change to project directory.
 cd "$(dirname $0)/.."
 
-# Install fnm if not installed.
-FNM_VERSION=v1.37.1
-if [[ "$(uname -m)" = "x86_64" ]]; then
-    ( file ~/.fnm/fnm | grep x86-64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-linux.zip; mkdir ~/.fnm; unzip -o fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
-elif [[ "$(uname -m)" = "aarch64" ]]; then
-    ( file ~/.fnm/fnm | grep aarch64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-arm64.zip; mkdir ~/.fnm; unzip -o fnm-arm64.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
-else
-    echo "Unknown machine type, uname -m: $(uname -m)" >&2
-    exit 1
+# Node.js project
+if [[ -f .nvmrc ]]; then
+    # Install fnm if not installed.
+    if [[ "$(uname -m)" = "x86_64" ]]; then
+        ( file ~/.fnm/fnm | grep x86-64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-linux.zip; mkdir ~/.fnm; unzip -o fnm-linux.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
+    elif [[ "$(uname -m)" = "aarch64" ]]; then
+        ( file ~/.fnm/fnm | grep aarch64 ) || ( cd /tmp; rm -f fnm-linux.zip; wget -c https://github.com/Schniz/fnm/releases/download/${FNM_VERSION}/fnm-arm64.zip; mkdir ~/.fnm; unzip -o fnm-arm64.zip -d ~/.fnm/; chmod 755 ~/.fnm/fnm )
+    else
+        echo "Unknown machine type, uname -m: $(uname -m)" >&2
+        exit 1
+    fi
+
+    # Load fnm.
+    eval "$(~/.fnm/fnm env --shell=bash --use-on-cd)"
+    export PATH="${HOME}/.fnm:${PATH}"
+
+    # Install node if not installed, also set to default.
+    _NODE_VERSION=$(cat .nvmrc)
+    fnm default "${_NODE_VERSION}" || ( fnm install "${_NODE_VERSION}"; fnm default "${_NODE_VERSION}" )
 fi
-
-# Load fnm.
-eval "$(~/.fnm/fnm env --shell=bash --use-on-cd)"
-export PATH="${HOME}/.fnm:${PATH}"
-
-# Install node 20 if not installed, also set to default.
-fnm default 20 || ( fnm install 20; fnm default 20 )
 
 # Get git branch name and setup .env
 BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
