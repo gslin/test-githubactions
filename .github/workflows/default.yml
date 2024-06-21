@@ -81,7 +81,6 @@ jobs:
         id: lock
         with:
           mode: lock
-          reason: Deployment on ${GITHUB_REF_NAME}
 
       - name: Deploy to server
         run: |
